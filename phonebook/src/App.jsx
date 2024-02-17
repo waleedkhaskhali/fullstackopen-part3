@@ -30,6 +30,14 @@ const App = () => {
     }
   };
 
+  const deletePerson = async (id) => {
+    await personService.remove(id);
+    if (id)
+      await personService.getAll().then((response) => {
+        setPersons(response);
+      });
+  };
+
   useEffect(() => {
     personService.getAll().then((response) => {
       setPersons(response);
@@ -45,10 +53,6 @@ const App = () => {
     }
     setFilteredNames(filteredItems);
   }, [searchTerm]);
-
-  const deletePerson = async (id) => {
-    await personService.remove(id);
-  };
 
   return (
     <div>
